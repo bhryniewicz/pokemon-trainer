@@ -6,7 +6,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { Typography, Box } from "@mui/material";
 import type { ZodIssue } from "zod";
 import { createTrainer, FormStateType } from "@/actions/createTrainer";
-import { AutoComplete } from "@/components/Autocomplete";
+import { AutoComplete, PokemonOption } from "@/components/Autocomplete";
 import { FormInput } from "@/components/FormInput";
 import { SubmitButton } from "@/components/Buttons/SubmitButton";
 import { SuccessModal } from "@/components/SuccessModal";
@@ -18,6 +18,9 @@ interface FormProps {
 }
 
 export const Form: FC<FormProps> = ({ pokemonDataComponent, search }) => {
+  const [selectedOption, setSelectedOption] = useState<PokemonOption | null>(
+    null
+  );
   const [state, formAction] = useFormState<FormStateType, FormData>(
     createTrainer,
     {
@@ -41,6 +44,7 @@ export const Form: FC<FormProps> = ({ pokemonDataComponent, search }) => {
   const handleResetInputs = () => {
     setInputName("");
     setInputAge("");
+    setSelectedOption(null);
     params.set("name", "");
     params.set("search", "");
 
@@ -81,6 +85,8 @@ export const Form: FC<FormProps> = ({ pokemonDataComponent, search }) => {
       <AutoComplete
         search={search}
         error={<ErrorMessages errors={pokemonErrors} />}
+        selectedOption={selectedOption}
+        setSelectedOption={setSelectedOption}
       />
       {pokemonDataComponent}
       <Box

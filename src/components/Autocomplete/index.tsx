@@ -12,19 +12,20 @@ export type PokemonOption = {
 interface AutocompleteProps {
   search: string;
   error: ReactNode;
+  selectedOption: PokemonOption | null;
+  setSelectedOption: (value: PokemonOption | null) => void;
 }
 
 export const AutocompleteComponent: FC<AutocompleteProps> = ({
   search,
   error,
+  selectedOption,
+  setSelectedOption,
 }) => {
   const [searchPhrase, setSearchPhrase] = useState<string>("");
   const [autocompleteOptions, setAutocompleteOptions] = useState<
     Array<PokemonOption>
   >([]);
-  const [selectedOption, setSelectedOption] = useState<PokemonOption | null>(
-    null
-  );
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -68,6 +69,8 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
             color: theme.palette.grey[200],
           },
         })}
+        value={selectedOption}
+        inputValue={searchPhrase}
         fullWidth
         options={autocompleteOptions}
         onChange={(_, value) => setSelectedOption(value)}
