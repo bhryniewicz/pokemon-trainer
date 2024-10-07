@@ -1,8 +1,20 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+Install all dependencies
+
+```bash
+npm i
+```
+
+if you are using lower version of Node thab v18.17.0 then:
+
+- you need to have a nvm to change version
+
+```bash
+nvm use v18.17.0
+```
+
+TO start development server:
 
 ```bash
 npm run dev
@@ -14,7 +26,7 @@ pnpm dev
 bun dev
 ```
 
-To do a production build
+To do a production build:
 
 ```bash
 npm run build => npm run start
