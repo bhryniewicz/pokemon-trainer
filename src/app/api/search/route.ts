@@ -1,18 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 import { pokemonOptions } from "@/db/utils";
+import Fuse from "fuse.js";
+import { wait } from "@/actions/getPokemonData";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const pokemonName = searchParams.get("name");
-  let searchedPokemons;
 
-  if (pokemonName !== null) {
+  if (pokemonName !== null && pokemonName !== "") {
+    let searchedPokemons;
+
     const lowerCasedQuery = pokemonName.toLowerCase();
-    const newPokemons = pokemonOptions.filter(({ label }: { label: string }) =>
-      label.includes(lowerCasedQuery)
-    );
-    searchedPokemons = newPokemons;
-  }
+    await wait(2000);
 
-  return NextResponse.json(searchedPokemons);
+    const fuse = new Fuse(pokemonOptions, {
+      keys: ["label"],
+    });
+
+    const results = fuse.search(lowerCasedQuery).map((res) => res.item);
+    searchedPokemons = results;
+
+    return NextResponse.json(searchedPokemons);
+  }
 }

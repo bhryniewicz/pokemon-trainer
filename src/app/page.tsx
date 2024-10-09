@@ -17,7 +17,8 @@ export default async function Home({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        minHeight: "100vh",
+        pt: 2,
       }}
     >
       <FormContainer search={search} name={name} />

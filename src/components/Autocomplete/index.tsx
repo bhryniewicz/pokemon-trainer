@@ -1,19 +1,14 @@
-"use client";
-
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Autocomplete, InputLabel, Input } from "@mui/material";
-import React, { useEffect, useState, ReactNode, FC } from "react";
-
-export type PokemonOption = {
-  label: string;
-  id: number;
-};
+import  { useEffect, useState, FC, ReactNode, memo } from "react";
+import { PokemonOption } from "@/types/pokemon";
+import { defaultAutocompleteValue } from "@/components/Form/values";
 
 interface AutocompleteProps {
   search: string;
   error: ReactNode;
-  selectedOption: PokemonOption | null;
-  setSelectedOption: (value: PokemonOption | null) => void;
+  selectedOption: PokemonOption;
+  setSelectedOption: (value: PokemonOption) => void;
 }
 
 export const AutocompleteComponent: FC<AutocompleteProps> = ({
@@ -26,38 +21,49 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
   const [autocompleteOptions, setAutocompleteOptions] = useState<
     Array<PokemonOption>
   >([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const params = new URLSearchParams(searchParams);
+
+  const updatedParams = new URLSearchParams(searchParams);
+
+  const updatePathname = (searchParam: string, value?: string) => {
+    if (value) {
+      updatedParams.set(searchParam, value);
+    } else {
+      updatedParams.delete(searchParam);
+    }
+
+    router.push(`${pathname}?${updatedParams.toString()}`);
+  };
 
   useEffect(() => {
-    params.set("search", searchPhrase || "");
-    params.set("name", selectedOption?.label || "");
-    router.push(`${pathname}?${params.toString()}`);
+    const timer = setTimeout(() => {
+      updatePathname("search", searchPhrase);
+    }, 1000);
+    updatePathname("name", selectedOption?.label);
+
+    return () => clearTimeout(timer);
   }, [searchPhrase, selectedOption]);
 
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
     const fetchData = async () => {
-      if (selectedOption) return;
       try {
+        if (searchPhrase == "") return;
+        setIsLoading(true);
         const response = await fetch(`/api/search?name=${searchPhrase}`);
         const data = await response.json();
         setAutocompleteOptions(data);
       } catch (error) {
         console.error("Error fetching Pokémon data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    if (search) {
-      timer = setTimeout(() => {
-        fetchData();
-      }, 1000);
-    }
-
-    return () => clearTimeout(timer);
+    fetchData();
   }, [search]);
 
   return (
@@ -69,13 +75,20 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
             color: theme.palette.grey[200],
           },
         })}
-        value={selectedOption}
+        loading={isLoading}
         inputValue={searchPhrase}
+        value={selectedOption}
         fullWidth
         options={autocompleteOptions}
-        onChange={(_, value) => setSelectedOption(value)}
+        onChange={(_, value) => {
+          setSelectedOption(value ?? defaultAutocompleteValue);
+        }}
         onInputChange={(_, value) => {
           setSearchPhrase(value);
+        }}
+        filterOptions={(options) => {
+          options = autocompleteOptions;
+          return options;
         }}
         renderInput={(params) => (
           <Input
@@ -88,6 +101,7 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
                 padding: "14px 10px !important",
               },
             })}
+            name="pokemon"
             disableUnderline
             placeholder={"Choose"}
             ref={params.InputProps.ref}
@@ -96,9 +110,8 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
         )}
       />
       {error}
-      <input type="hidden" name="pokemon" value={selectedOption?.label ?? ""} />
     </>
   );
 };
 
-export const AutoComplete = React.memo(AutocompleteComponent);
+export const AutoComplete = memo(AutocompleteComponent);

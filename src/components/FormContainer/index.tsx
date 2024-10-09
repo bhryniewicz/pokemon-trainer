@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Box, Container } from "@mui/material";
 import { ActualDate } from "@/components/ActualDate";
-import { PokemonData } from "@/components/PokemonData";
+import { PokemonData } from "../PokemonData";
 import { Form } from "@/components/Form";
 
 interface FormProps {
@@ -15,12 +15,16 @@ export const FormContainer: FC<FormProps> = async ({
 }) => {
   return (
     <Container maxWidth="sm">
-      <Box sx={{ border: `1px solid #eeeeee`, p: 4 }}>
+      <Box
+        sx={{
+          border: { sx: "none", sm: `1px solid #eeeeee` },
+          p: { xs: 2, sm: 4 },
+        }}
+      >
         <ActualDate />
-        <Form
-          search={search}
-          pokemonDataComponent={<PokemonData pokemonName={name} key={search} />}
-        />
+        <Form search={search}>
+          <PokemonData pokemonName={name} key={name} />
+        </Form>
       </Box>
     </Container>
   );

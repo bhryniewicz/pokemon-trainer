@@ -32,7 +32,7 @@ export const FormInput: FC<PokemonTrainerInputProps> = ({
         placeholder={placeholder}
         name={name}
         sx={{
-          width: "max-content",
+          width: "100%",
           border: `1px solid ${theme.palette.grey[400]}`,
           padding: "14px 10px",
           borderRadius: "4px",

@@ -1,6 +1,12 @@
-"use server";
-
 import { z } from "zod";
+
+export const wait = (duration: number) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(console.log());
+    }, duration);
+  });
+};
 
 const PokemonType = z.object({
   type: z.object({
@@ -20,6 +26,8 @@ const PokemonResult = z.object({
 
 export const getPokemonData = async (pokemonName: string) => {
   if (pokemonName == "") return undefined;
+
+  await wait(2000);
 
   const response = await fetch(
     `https://pokeapi.co/api/v2/pokemon/${pokemonName}/`
