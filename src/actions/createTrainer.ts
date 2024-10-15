@@ -45,7 +45,7 @@ export const createTrainer = async (
       }),
     });
 
-    revalidatePath("/");
+    revalidatePath("/trainers");
 
     return {
       errors: [],

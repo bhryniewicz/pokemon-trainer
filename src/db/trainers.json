@@ -22,5 +22,17 @@
     "name": "mik",
     "age": 33,
     "pokemon": "sewaddle"
+  },
+  {
+    "id": "b7260902-8b3e-41eb-8c1b-3213ce709a97",
+    "name": "bartek",
+    "age": 44,
+    "pokemon": "sawsbuck"
+  },
+  {
+    "id": "0c64f935-b0bd-4bb5-9467-4c2f6151aff3",
+    "name": "po zmianie stron",
+    "age": 45,
+    "pokemon": "pignite"
   }
 ]
