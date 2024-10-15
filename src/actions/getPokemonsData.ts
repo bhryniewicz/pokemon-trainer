@@ -1,7 +1,7 @@
 import { wait } from "./getPokemonData";
 
 export const getPokemonsData = async () => {
-  const resp = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=10");
+  const resp = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=20");
 
   await wait(2000);
 

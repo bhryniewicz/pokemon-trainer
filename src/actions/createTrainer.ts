@@ -1,6 +1,8 @@
 "use server";
 
+import { promises as fs } from "fs";
 import { revalidatePath } from "next/cache";
+import path from "path";
 import { z, ZodIssue } from "zod";
 
 export type FormStateType = {
@@ -30,6 +32,16 @@ export const createTrainer = async (
     pokemon: formData.get("pokemon"),
   });
 
+  const file = formData.get("file") as File;
+
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const uploadDir = path.join(process.cwd(), "public/uploads");
+  const filePath = path.join(uploadDir, file.name);
+
+  await fs.mkdir(uploadDir, { recursive: true });
+
+  await fs.writeFile(filePath, buffer);
+
   if (validation.success) {
     await fetch("http://localhost:3000/api/trainer", {
       method: "POST",
@@ -42,6 +54,7 @@ export const createTrainer = async (
         name: formData.get("name"),
         age: Number(formData.get("age")),
         pokemon: formData.get("pokemon"),
+        image: `http://localhost:3000/uploads/${file.name}`,
       }),
     });
 

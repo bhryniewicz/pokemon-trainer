@@ -1,38 +1,9 @@
 [
   {
-    "id": "6dd4e588-92d1-4adc-a46b-83e587389e72",
-    "name": "Bartek",
-    "age": 44,
-    "pokemon": "deerling"
-  },
-  {
-    "id": "74eb4e64-1627-4c10-9390-9970149b5fd7",
-    "name": "eeee",
-    "age": 56,
-    "pokemon": "timburr"
-  },
-  {
-    "id": "b8e53f54-d5c0-4f46-a4c5-8647cca9db76",
+    "id": "fdd13774-69dc-4eda-afa6-f383c5a0de64",
     "name": "nowy trener",
-    "age": 34,
-    "pokemon": "simisage"
-  },
-  {
-    "id": "fa819424-33d4-4472-9395-f123d8b97a9d",
-    "name": "mik",
-    "age": 33,
-    "pokemon": "sewaddle"
-  },
-  {
-    "id": "b7260902-8b3e-41eb-8c1b-3213ce709a97",
-    "name": "bartek",
     "age": 44,
-    "pokemon": "sawsbuck"
-  },
-  {
-    "id": "0c64f935-b0bd-4bb5-9467-4c2f6151aff3",
-    "name": "po zmianie stron",
-    "age": 45,
-    "pokemon": "pignite"
+    "pokemon": "darumaka",
+    "image": "http://localhost:3000/uploads/avatar-2307d6cc20b18f57756471078f43e911.jpg"
   }
 ]

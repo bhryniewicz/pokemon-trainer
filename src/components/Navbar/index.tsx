@@ -10,6 +10,7 @@ export const Navbar = () => {
         <Toolbar variant="dense" sx={{ gap: "1rem" }}>
           <Link href="/">Home</Link>
           <Link href="/pokemons">Pokemons</Link>
+          <Link href="/trainers">Trainers</Link>
         </Toolbar>
       </AppBar>
     </Box>

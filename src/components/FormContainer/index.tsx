@@ -1,8 +1,8 @@
-import { FC } from "react";
-import { Box, Container } from "@mui/material";
 import { ActualDate } from "@/components/ActualDate";
-import { PokemonData } from "../PokemonData";
 import { Form } from "@/components/Form";
+import { Box, Container } from "@mui/material";
+import { FC } from "react";
+import { PokemonData } from "../PokemonData";
 
 interface FormProps {
   search?: string;
@@ -14,7 +14,7 @@ export const FormContainer: FC<FormProps> = async ({
   name = "",
 }) => {
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="lg">
       <Box
         sx={{
           border: { sx: "none", sm: `1px solid #eeeeee` },

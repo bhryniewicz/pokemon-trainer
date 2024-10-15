@@ -1,3 +1,5 @@
+"use server";
+
 import { z } from "zod";
 
 export const wait = (duration: number) => {
