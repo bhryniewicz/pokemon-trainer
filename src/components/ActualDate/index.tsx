@@ -1,5 +1,5 @@
-import { Typography } from "@mui/material";
 import { getActualDate } from "@/actions/getActualDate";
+import { Typography } from "@mui/material";
 import { FC } from "react";
 
 export const ActualDate: FC = async () => {

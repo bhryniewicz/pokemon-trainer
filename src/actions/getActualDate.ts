@@ -1,5 +1,3 @@
-"use server";
-
 import { intlFormat } from "date-fns";
 import { z } from "zod";
 

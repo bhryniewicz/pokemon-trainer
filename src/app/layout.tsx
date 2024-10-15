@@ -1,7 +1,9 @@
-import type { Metadata } from "next";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { theme } from "@/theme/theme";
+import { Navbar } from "@/components/Navbar";
 import { globalStyles } from "@/theme/globalStyles";
+import { theme } from "@/theme/theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Pokemon trainer app",
@@ -25,11 +27,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {globalStyles}
-          {children}
-        </ThemeProvider>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {globalStyles}
+            <Navbar />
+            {children}
+          </ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, FC, useEffect, ReactNode } from "react";
-import { useFormState } from "react-dom";
-import { Box } from "@mui/material";
 import { createTrainer, FormStateType } from "@/actions/createTrainer";
 import { AutoComplete } from "@/components/Autocomplete";
-import { FormInput } from "@/components/FormInput";
-import { SubmitButton } from "@/components/Buttons/SubmitButton";
-import { SuccessModal } from "@/components/SuccessModal";
 import { ResetButton } from "@/components/Buttons/ResetButton";
-import { PokemonOption } from "@/types/pokemon";
+import { SubmitButton } from "@/components/Buttons/SubmitButton";
 import { ErrorMessages, findErrors } from "@/components/Errors/ErrorMessages";
+import { FormInput } from "@/components/FormInput";
+import { SuccessModal } from "@/components/SuccessModal";
+import { PokemonOption } from "@/types/pokemon";
+import { Box } from "@mui/material";
+import { FC, ReactNode, useEffect, useState } from "react";
+import { useFormState } from "react-dom";
 import { defaultAutocompleteValue } from "./values";
 
 interface FormProps {
@@ -41,6 +41,7 @@ export const Form: FC<FormProps> = ({ search, children }) => {
     setInputName("");
     setInputAge("");
     setSelectedOption(defaultAutocompleteValue);
+    state.isModalOpen = false;
   };
 
   useEffect(() => {

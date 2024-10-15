@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { wait } from "@/actions/getPokemonData";
 import { pokemonOptions } from "@/db/utils";
 import Fuse from "fuse.js";
-import { wait } from "@/actions/getPokemonData";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -23,3 +23,5 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(searchedPokemons);
   }
 }
+
+

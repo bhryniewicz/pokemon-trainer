@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { z, ZodIssue } from "zod";
 
 export type FormStateType = {
@@ -30,6 +31,22 @@ export const createTrainer = async (
   });
 
   if (validation.success) {
+    await fetch("http://localhost:3000/api/trainer", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: crypto.randomUUID(),
+        name: formData.get("name"),
+        age: Number(formData.get("age")),
+        pokemon: formData.get("pokemon"),
+      }),
+    });
+
+    revalidatePath("/");
+
     return {
       errors: [],
       isModalOpen: true,

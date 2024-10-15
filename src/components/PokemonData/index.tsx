@@ -1,11 +1,11 @@
 "use client";
 
-import { Box, List, ListItem, Typography } from "@mui/material";
-import Image from "next/image";
 import { getPokemonData } from "@/actions/getPokemonData";
 import { TypeBox } from "@/components/PokemonData/TypeBox";
-import { FC, useEffect, useState } from "react";
 import { PokemonDataType } from "@/types/pokemon";
+import { Box, List, ListItem, Typography } from "@mui/material";
+import Image from "next/image";
+import { FC, useEffect, useState } from "react";
 
 interface PokemonDataProps {
   pokemonName: string;

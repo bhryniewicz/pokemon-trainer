@@ -1,0 +1,26 @@
+[
+  {
+    "id": "6dd4e588-92d1-4adc-a46b-83e587389e72",
+    "name": "Bartek",
+    "age": 44,
+    "pokemon": "deerling"
+  },
+  {
+    "id": "74eb4e64-1627-4c10-9390-9970149b5fd7",
+    "name": "eeee",
+    "age": 56,
+    "pokemon": "timburr"
+  },
+  {
+    "id": "b8e53f54-d5c0-4f46-a4c5-8647cca9db76",
+    "name": "nowy trener",
+    "age": 34,
+    "pokemon": "simisage"
+  },
+  {
+    "id": "fa819424-33d4-4472-9395-f123d8b97a9d",
+    "name": "mik",
+    "age": 33,
+    "pokemon": "sewaddle"
+  }
+]

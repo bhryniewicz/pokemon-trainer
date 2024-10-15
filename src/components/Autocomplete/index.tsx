@@ -1,8 +1,8 @@
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Autocomplete, InputLabel, Input } from "@mui/material";
-import  { useEffect, useState, FC, ReactNode, memo } from "react";
-import { PokemonOption } from "@/types/pokemon";
 import { defaultAutocompleteValue } from "@/components/Form/values";
+import { PokemonOption } from "@/types/pokemon";
+import { Autocomplete, Input, InputLabel } from "@mui/material";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { FC, ReactNode, memo, useEffect, useState } from "react";
 
 interface AutocompleteProps {
   search: string;
