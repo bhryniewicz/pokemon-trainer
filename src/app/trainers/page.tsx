@@ -1,5 +1,6 @@
 import { getTrainers } from "@/actions/getTrainers";
 import {
+  Box,
   Button,
   Container,
   Table,
@@ -45,7 +46,7 @@ export default async function TrainersPage() {
 }
 
 const TrainersTable = ({ trainers }) => {
-  return (
+  return trainers.length > 0 ? (
     <TableContainer>
       <Table>
         <TableHead>
@@ -53,6 +54,7 @@ const TrainersTable = ({ trainers }) => {
             <TableCell>Trainer's nane</TableCell>
             <TableCell align="right">Chosen pokemon</TableCell>
             <TableCell align="right">Trainer's age</TableCell>
+            <TableCell align="right">Trainer's image</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -65,13 +67,25 @@ const TrainersTable = ({ trainers }) => {
                 <TableCell>{trainer.name}</TableCell>
                 <TableCell align="right">{trainer.pokemon}</TableCell>
                 <TableCell align="right">{trainer.age}</TableCell>
-                <TableCell>
-                  <Image
-                    width={100}
-                    height={100}
-                    src={trainer.image}
-                    alt="trainers image"
-                  />
+                <TableCell sx={{ display: "flex", justifyContent: "flex-end" }}>
+                  <Box
+                    sx={{
+                      position: "relative",
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <Image
+                      src={trainer.image}
+                      alt="jd"
+                      fill
+                      style={{
+                        objectFit: "cover",
+                        borderRadius: "inherit",
+                      }}
+                    />
+                  </Box>
                 </TableCell>
               </TableRow>
             );
@@ -79,5 +93,7 @@ const TrainersTable = ({ trainers }) => {
         </TableBody>
       </Table>
     </TableContainer>
+  ) : (
+    <h1>No trainers at this moment!</h1>
   );
 };

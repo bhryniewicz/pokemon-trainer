@@ -34,13 +34,20 @@ export const createTrainer = async (
 
   const file = formData.get("file") as File;
 
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const uploadDir = path.join(process.cwd(), "public/uploads");
-  const filePath = path.join(uploadDir, file.name);
+  let userImage;
 
-  await fs.mkdir(uploadDir, { recursive: true });
+  if (file.name === "undefined") {
+    userImage = "basic_user_image.png";
+  } else {
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const uploadDir = path.join(process.cwd(), "public/uploads");
+    const filePath = path.join(uploadDir, file.name);
 
-  await fs.writeFile(filePath, buffer);
+    await fs.mkdir(uploadDir, { recursive: true });
+
+    await fs.writeFile(filePath, buffer);
+    userImage = file.name;
+  }
 
   if (validation.success) {
     await fetch("http://localhost:3000/api/trainer", {
@@ -54,7 +61,7 @@ export const createTrainer = async (
         name: formData.get("name"),
         age: Number(formData.get("age")),
         pokemon: formData.get("pokemon"),
-        image: `http://localhost:3000/uploads/${file.name}`,
+        image: `http://localhost:3000/uploads/${userImage}`,
       }),
     });
 

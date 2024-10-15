@@ -8,7 +8,7 @@ import { ErrorMessages, findErrors } from "@/components/Errors/ErrorMessages";
 import { FormInput } from "@/components/FormInput";
 import { SuccessModal } from "@/components/SuccessModal";
 import { PokemonOption } from "@/types/pokemon";
-import { Box, Button, Grid2, InputLabel } from "@mui/material";
+import { Box, Button, Grid2, InputLabel, Typography } from "@mui/material";
 import { ChangeEventHandler, FC, ReactNode, useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { defaultAutocompleteValue } from "./values";
@@ -32,7 +32,7 @@ export const Form: FC<FormProps> = ({ search, children }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(state.isModalOpen);
   const [inputName, setInputName] = useState<string>("");
   const [inputAge, setInputAge] = useState<string>("");
-  const [image, setImage] = useState<File>();
+  const [imageName, setImageName] = useState<string>("No file choosen");
 
   const nameErrors = findErrors("name", state.errors);
   const ageErrors = findErrors("age", state.errors);
@@ -48,7 +48,11 @@ export const Form: FC<FormProps> = ({ search, children }) => {
   const handleFileChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const file = event.target.files as FileList;
 
-    console.log(file[0]);
+    if (file) {
+      setImageName(file[0]?.name);
+    } else {
+      setImageName("No file chosen");
+    }
   };
 
   useEffect(() => {
@@ -99,6 +103,7 @@ export const Form: FC<FormProps> = ({ search, children }) => {
             <Box
               sx={{
                 display: "flex",
+                flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
                 border: "1px solid #eee",
@@ -110,7 +115,7 @@ export const Form: FC<FormProps> = ({ search, children }) => {
                 variant="contained"
                 color="primary"
                 component="label"
-                sx={{ height: "30px" }}
+                sx={{ height: "30px", mb: 1 }}
               >
                 Choose File
                 <input
@@ -120,6 +125,7 @@ export const Form: FC<FormProps> = ({ search, children }) => {
                   name="file"
                 />
               </Button>
+              <Typography variant="body1">{imageName}</Typography>
             </Box>
           </Grid2>
         </Grid2>

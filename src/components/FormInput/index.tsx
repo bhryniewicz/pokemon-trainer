@@ -1,5 +1,5 @@
+import { Box, Input, InputLabel, useTheme } from "@mui/material";
 import { FC, ReactNode } from "react";
-import { InputLabel, Input, Box, useTheme } from "@mui/material";
 
 interface PokemonTrainerInputProps {
   name: string;
@@ -32,13 +32,12 @@ export const FormInput: FC<PokemonTrainerInputProps> = ({
         placeholder={placeholder}
         name={name}
         sx={{
-          width: "100%",
           border: `1px solid ${theme.palette.grey[400]}`,
           padding: "14px 10px",
           borderRadius: "4px",
           mb: 0.5,
           "& .MuiInput-input": {
-            width: "210px",
+            width: "235px",
             padding: "0",
           },
         }}
