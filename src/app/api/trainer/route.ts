@@ -1,3 +1,4 @@
+import { wait } from "@/db/utils";
 import fs from "fs";
 import { NextResponse } from "next/server";
 import path from "path";
@@ -41,6 +42,7 @@ export async function POST(request: Request) {
 export async function GET() {
   try {
     if (fs.existsSync(trainersFilePath)) {
+      await wait(2000);
       const data = fs.readFileSync(trainersFilePath, "utf-8");
       const trainersData = JSON.parse(data);
 

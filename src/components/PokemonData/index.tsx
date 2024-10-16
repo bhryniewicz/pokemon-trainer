@@ -2,6 +2,7 @@
 
 import { getPokemonData } from "@/actions/getPokemonData";
 import { TypeBox } from "@/components/PokemonData/TypeBox";
+import { boxSx } from "@/theme/styles";
 import { PokemonDataType } from "@/types/pokemon";
 import { Box, List, ListItem, Typography } from "@mui/material";
 import Image from "next/image";
@@ -11,7 +12,7 @@ interface PokemonDataProps {
   pokemonName: string;
 }
 
-const boxStyles = {
+export const boxStyles = {
   display: "flex",
   flexDirection: { xs: "column", sm: "row" },
   alignItems: "center",
@@ -84,7 +85,7 @@ export const PokemonData: FC<PokemonDataProps> = ({ pokemonName }) => {
       </List>
     </Box>
   ) : (
-    <Box sx={{ ...boxStyles }}>
+    <Box sx={{ ...boxSx }}>
       <Typography variant="body2" color="secondary.light">
         Your pokemon
       </Typography>

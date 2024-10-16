@@ -34,7 +34,7 @@ export const theme: Theme = createTheme({
       styleOverrides: {
         root: {
           padding: "0",
-          fontSize: "14px",
+          fontSize: "12px",
         },
       },
     },

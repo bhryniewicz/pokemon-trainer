@@ -9,3 +9,11 @@ export const pokemonOptions: Array<PokemonOption> = pokemons.data.map(
     };
   }
 );
+
+export const wait = (duration: number) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(console.log());
+    }, duration);
+  });
+};

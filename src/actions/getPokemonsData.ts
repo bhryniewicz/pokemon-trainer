@@ -1,9 +1,7 @@
-import { wait } from "./getPokemonData";
-
-export const getPokemonsData = async () => {
-  const resp = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=20");
-
-  await wait(2000);
+export const getPokemonsData = async (limit: number, offset: number) => {
+  const resp = await fetch(
+    `https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`
+  );
 
   if (!resp.ok) {
     throw new Error("no pokemons");

@@ -9,7 +9,14 @@ import { FormInput } from "@/components/FormInput";
 import { SuccessModal } from "@/components/SuccessModal";
 import { PokemonOption } from "@/types/pokemon";
 import { Box, Button, Grid2, InputLabel, Typography } from "@mui/material";
-import { ChangeEventHandler, FC, ReactNode, useEffect, useState } from "react";
+import {
+  ChangeEventHandler,
+  FC,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useFormState } from "react-dom";
 import { defaultAutocompleteValue } from "./values";
 
@@ -34,15 +41,20 @@ export const Form: FC<FormProps> = ({ search, children }) => {
   const [inputAge, setInputAge] = useState<string>("");
   const [imageName, setImageName] = useState<string>("No file choosen");
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const nameErrors = findErrors("name", state.errors);
   const ageErrors = findErrors("age", state.errors);
   const pokemonErrors = findErrors("pokemon", state.errors);
+  const fileErrors = findErrors("image", state.errors);
 
   const handleResetInputs = () => {
     setInputName("");
     setInputAge("");
     setSelectedOption(defaultAutocompleteValue);
     state.isModalOpen = false;
+    fileInputRef.current!.value = "";
+    setImageName("No file choosen");
   };
 
   const handleFileChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -123,9 +135,11 @@ export const Form: FC<FormProps> = ({ search, children }) => {
                   hidden
                   onChange={handleFileChange}
                   name="file"
+                  ref={fileInputRef}
                 />
               </Button>
               <Typography variant="body1">{imageName}</Typography>
+              <ErrorMessages errors={fileErrors} />
             </Box>
           </Grid2>
         </Grid2>

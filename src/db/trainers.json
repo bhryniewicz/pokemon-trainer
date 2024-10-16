@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": "9f345c8a-7139-4cc2-a2c3-5f1044cc0f7a",
+    "name": "Bartek",
+    "age": 44,
+    "pokemon": "squirtle",
+    "image": "http://localhost:3000/uploads/basic_user_image.png"
+  },
+  {
+    "id": "6dcfdd59-6d13-4ba2-9ed2-6d3ba12ba6eb",
+    "name": "Pawilon",
+    "age": 66,
+    "pokemon": "carracosta",
+    "image": "http://localhost:3000/uploads/basic_user_image.png"
+  },
+  {
+    "id": "109fd551-b468-453c-b7f3-27fcc6069a76",
+    "name": "nowy trener",
+    "age": 44,
+    "pokemon": "palpitoad",
+    "image": "http://localhost:3000/uploads/6d3.jpeg"
+  }
+]

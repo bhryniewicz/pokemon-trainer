@@ -1,14 +1,7 @@
 "use server";
 
+import { wait } from "@/db/utils";
 import { z } from "zod";
-
-export const wait = (duration: number) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(console.log());
-    }, duration);
-  });
-};
 
 const PokemonType = z.object({
   type: z.object({

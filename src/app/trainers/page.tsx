@@ -1,4 +1,5 @@
 import { getTrainers } from "@/actions/getTrainers";
+import { boxSx } from "@/theme/styles";
 import {
   Box,
   Button,
@@ -9,14 +10,13 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
 export default async function TrainersPage() {
-  const trainers = await getTrainers();
-
   return (
     <Container
       sx={{
@@ -37,15 +37,25 @@ export default async function TrainersPage() {
         maxWidth="lg"
         sx={{ border: "1px solid #eeeeee", borderRadius: "4px", py: 2, mt: 2 }}
       >
-        <Suspense fallback={<h1>loading table...</h1>}>
-          <TrainersTable trainers={trainers} />
+        <Suspense
+          fallback={
+            <Box sx={{ ...boxSx, border: "none" }}>
+              <Typography variant="body2" color="secondary.light">
+                Loading trainers...
+              </Typography>
+            </Box>
+          }
+        >
+          <TrainersTable />
         </Suspense>
       </Container>
     </Container>
   );
 }
 
-const TrainersTable = ({ trainers }) => {
+const TrainersTable = async () => {
+  const trainers = await getTrainers();
+
   return trainers.length > 0 ? (
     <TableContainer>
       <Table>
@@ -62,12 +72,27 @@ const TrainersTable = ({ trainers }) => {
             return (
               <TableRow
                 key={trainer.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                sx={{
+                  "&:last-child td, &:last-child th": { border: 0 },
+                  "&:hover": {
+                    backgroundColor: "primary.light",
+                  },
+                }}
               >
-                <TableCell>{trainer.name}</TableCell>
-                <TableCell align="right">{trainer.pokemon}</TableCell>
-                <TableCell align="right">{trainer.age}</TableCell>
-                <TableCell sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <TableCell sx={{ fontSize: "14px" }}>{trainer.name}</TableCell>
+                <TableCell sx={{ fontSize: "14px" }} align="right">
+                  {trainer.pokemon}
+                </TableCell>
+                <TableCell sx={{ fontSize: "14px" }} align="right">
+                  {trainer.age}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    fontSize: "14px",
+                  }}
+                >
                   <Box
                     sx={{
                       position: "relative",
@@ -94,6 +119,10 @@ const TrainersTable = ({ trainers }) => {
       </Table>
     </TableContainer>
   ) : (
-    <h1>No trainers at this moment!</h1>
+    <Box sx={{ ...boxSx, border: "none" }}>
+      <Typography variant="body2" color="secondary.light">
+        You don't have any trainers yet!
+      </Typography>
+    </Box>
   );
 };

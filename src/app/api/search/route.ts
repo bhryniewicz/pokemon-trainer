@@ -1,5 +1,4 @@
-import { wait } from "@/actions/getPokemonData";
-import { pokemonOptions } from "@/db/utils";
+import { pokemonOptions, wait } from "@/db/utils";
 import Fuse from "fuse.js";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -23,5 +22,3 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(searchedPokemons);
   }
 }
-
-

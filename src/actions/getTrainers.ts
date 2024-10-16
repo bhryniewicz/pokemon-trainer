@@ -1,3 +1,4 @@
+
 export const getTrainers = async () => {
   const resp = await fetch("http://localhost:3000/api/trainer");
 
