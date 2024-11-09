@@ -4,21 +4,20 @@ type PokemonType = {
   };
 };
 
-type PokemonImage = {
-  front_default: string;
+export type PokemonDataType = {
+  id: number;
+  base_experience: number;
+  name: string;
+  types: Array<PokemonType>;
+  image: string;
 };
-
-export type PokemonDataType =
-  | {
-      id: number;
-      base_experience: number;
-      name: string;
-      types: Array<PokemonType>;
-      sprites: PokemonImage;
-    }
-  | undefined;
 
 export type PokemonOption = {
   label: string;
   id: number;
 };
+
+export type PokemonBasicInfo = Pick<
+  NonNullable<PokemonDataType>,
+  "id" | "name" | "image"
+>;

@@ -2,7 +2,6 @@ import { ActualDate } from "@/components/ActualDate";
 import { Form } from "@/components/Form";
 import { Box, Container } from "@mui/material";
 import { FC } from "react";
-import { PokemonData } from "../PokemonData";
 
 interface FormProps {
   search?: string;
@@ -22,9 +21,7 @@ export const FormContainer: FC<FormProps> = async ({
         }}
       >
         <ActualDate />
-        <Form search={search}>
-          <PokemonData pokemonName={name} key={name} />
-        </Form>
+        <Form search={search} />
       </Box>
     </Container>
   );

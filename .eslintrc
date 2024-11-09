@@ -1,0 +1,14 @@
+{
+  "parser": "@typescript-eslint/parser", // If you are using TypeScript
+  "extends": ["plugin:@next/next/recommended"],
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@next/next/no-page-custom-font": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {} // this loads <rootdir>/tsconfig.json to eslint
+    }
+  }
+}

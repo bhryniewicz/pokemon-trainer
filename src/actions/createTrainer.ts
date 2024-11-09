@@ -25,6 +25,7 @@ const imageSchema = z
     return file.size <= MAX_FILE_SIZE;
   }, `Max image size is 5MB.`)
   .refine((file) => {
+    if (file.size == 0) return true;
     return ACCEPTED_IMAGE_MIME_TYPES.includes(file.type);
   }, "Only .jpg, .jpeg, .png, and .webp formats are supported.");
 

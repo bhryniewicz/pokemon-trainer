@@ -1,8 +1,10 @@
 import { defaultAutocompleteValue } from "@/components/Form/values";
+import { getSearchedPokemons } from "@/db/server/getSearchedPokemons";
+import { useDebounce } from "@/hooks/useDebounce";
 import { PokemonOption } from "@/types/pokemon";
 import { Autocomplete, Input, InputLabel } from "@mui/material";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { FC, ReactNode, memo, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { FC, ReactNode, memo, useState } from "react";
 
 interface AutocompleteProps {
   search: string;
@@ -12,59 +14,20 @@ interface AutocompleteProps {
 }
 
 export const AutocompleteComponent: FC<AutocompleteProps> = ({
-  search,
   error,
   selectedOption,
   setSelectedOption,
 }) => {
   const [searchPhrase, setSearchPhrase] = useState<string>("");
-  const [autocompleteOptions, setAutocompleteOptions] = useState<
-    Array<PokemonOption>
-  >([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const debouncedSearchPhrase = useDebounce(searchPhrase, 300);
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-
-  const updatedParams = new URLSearchParams(searchParams);
-
-  const updatePathname = (searchParam: string, value?: string) => {
-    if (value) {
-      updatedParams.set(searchParam, value);
-    } else {
-      updatedParams.delete(searchParam);
-    }
-
-    router.push(`${pathname}?${updatedParams.toString()}`);
-  };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      updatePathname("search", searchPhrase);
-    }, 1000);
-    updatePathname("name", selectedOption?.label);
-
-    return () => clearTimeout(timer);
-  }, [searchPhrase, selectedOption]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (searchPhrase == "") return;
-        setIsLoading(true);
-        const response = await fetch(`/api/search?name=${searchPhrase}`);
-        const data = await response.json();
-        setAutocompleteOptions(data);
-      } catch (error) {
-        console.error("Error fetching Pokémon data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [search]);
+  const { data: filteredOptions, isLoading } = useQuery({
+    queryKey: ["searched-pokemon", debouncedSearchPhrase],
+    queryFn: async () => await getSearchedPokemons(debouncedSearchPhrase),
+    initialData: [],
+    staleTime: 0,
+    enabled: debouncedSearchPhrase !== "",
+  });
 
   return (
     <>
@@ -79,7 +42,7 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
         inputValue={searchPhrase}
         value={selectedOption}
         fullWidth
-        options={autocompleteOptions}
+        options={filteredOptions}
         onChange={(_, value) => {
           setSelectedOption(value ?? defaultAutocompleteValue);
         }}
@@ -87,7 +50,7 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
           setSearchPhrase(value);
         }}
         filterOptions={(options) => {
-          options = autocompleteOptions;
+          options = filteredOptions;
           return options;
         }}
         renderInput={(params) => (

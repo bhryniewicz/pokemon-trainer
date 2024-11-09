@@ -1,4 +1,4 @@
-import { getActualDate } from "../actions/getActualDate";
+import { getActualDate } from "../db/server/getActualDate";
 import { format } from "date-fns";
 
 global.fetch = jest.fn();

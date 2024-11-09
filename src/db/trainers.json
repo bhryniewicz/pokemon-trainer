@@ -19,5 +19,33 @@
     "age": 44,
     "pokemon": "palpitoad",
     "image": "http://localhost:3000/uploads/6d3.jpeg"
+  },
+  {
+    "id": "32d4d32c-f7e3-44f4-8e75-cefcc8948b4f",
+    "name": "name",
+    "age": 44,
+    "pokemon": "simipour",
+    "image": "http://localhost:3000/uploads/6d3.jpeg"
+  },
+  {
+    "id": "2a4aa700-84eb-4a5a-aab5-0d33b0c4cbbb",
+    "name": "nowy",
+    "age": 44,
+    "pokemon": "manaphy",
+    "image": "http://localhost:3000/uploads/basic_user_image.png"
+  },
+  {
+    "id": "93059b11-0ac7-43e0-a0b5-e348a7ff3c2c",
+    "name": "nowymis",
+    "age": 24,
+    "pokemon": "pikachu",
+    "image": "http://localhost:3000/uploads/basic_user_image.png"
+  },
+  {
+    "id": "c7065ab6-08db-4e62-a3a3-81db15f44272",
+    "name": "nowy",
+    "age": 44,
+    "pokemon": "seismitoad",
+    "image": "http://localhost:3000/uploads/basic_user_image.png"
   }
 ]

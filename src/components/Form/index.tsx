@@ -9,23 +9,16 @@ import { FormInput } from "@/components/FormInput";
 import { SuccessModal } from "@/components/SuccessModal";
 import { PokemonOption } from "@/types/pokemon";
 import { Box, Button, Grid2, InputLabel, Typography } from "@mui/material";
-import {
-  ChangeEventHandler,
-  FC,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEventHandler, FC, useEffect, useRef, useState } from "react";
 import { useFormState } from "react-dom";
+import { PokemonData } from "../PokemonData";
 import { defaultAutocompleteValue } from "./values";
 
 interface FormProps {
   search: string;
-  children: ReactNode;
 }
 
-export const Form: FC<FormProps> = ({ search, children }) => {
+export const Form: FC<FormProps> = ({ search }) => {
   const [state, formAction] = useFormState<FormStateType, FormData>(
     createTrainer,
     {
@@ -42,11 +35,6 @@ export const Form: FC<FormProps> = ({ search, children }) => {
   const [imageName, setImageName] = useState<string>("No file choosen");
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const nameErrors = findErrors("name", state.errors);
-  const ageErrors = findErrors("age", state.errors);
-  const pokemonErrors = findErrors("pokemon", state.errors);
-  const fileErrors = findErrors("image", state.errors);
 
   const handleResetInputs = () => {
     setInputName("");
@@ -89,7 +77,9 @@ export const Form: FC<FormProps> = ({ search, children }) => {
                 label="Trainer's name"
                 placeholder="Trainer's name"
                 name="name"
-                error={<ErrorMessages errors={nameErrors} />}
+                error={
+                  <ErrorMessages errors={findErrors("name", state.errors)} />
+                }
                 value={inputName}
                 setValue={setInputName}
               />
@@ -97,18 +87,22 @@ export const Form: FC<FormProps> = ({ search, children }) => {
                 label="Trainer's age"
                 placeholder="Trainer's age"
                 name="age"
-                error={<ErrorMessages errors={ageErrors} />}
+                error={
+                  <ErrorMessages errors={findErrors("age", state.errors)} />
+                }
                 value={inputAge}
                 setValue={setInputAge}
               />
             </Box>
             <AutoComplete
               search={search}
-              error={<ErrorMessages errors={pokemonErrors} />}
+              error={
+                <ErrorMessages errors={findErrors("pokemon", state.errors)} />
+              }
               selectedOption={selectedOption}
               setSelectedOption={setSelectedOption}
             />
-            {children}
+            <PokemonData pokemonName={selectedOption.label} />
           </Grid2>
           <Grid2 size={6} sx={{ display: "flex", flexDirection: "column" }}>
             <InputLabel>Trainer's image</InputLabel>
@@ -139,7 +133,7 @@ export const Form: FC<FormProps> = ({ search, children }) => {
                 />
               </Button>
               <Typography variant="body1">{imageName}</Typography>
-              <ErrorMessages errors={fileErrors} />
+              <ErrorMessages errors={findErrors("image", state.errors)} />
             </Box>
           </Grid2>
         </Grid2>

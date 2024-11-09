@@ -1,8 +1,8 @@
-import { getPokemonsData } from "@/actions/getPokemonsData";
 import { PokemonsList } from "@/components/PokemonsList";
+import { getPokemonsData } from "@/db/server/getPokemonsData";
 import { Box, Typography } from "@mui/material";
 
-const INITIAL_NUMBER_OF_POKEMONS = 10;
+const INITIAL_NUMBER_OF_POKEMONS = 12;
 
 export default async function PokemonsPage() {
   const initialPokemons = await getPokemonsData(INITIAL_NUMBER_OF_POKEMONS, 0);

@@ -8,7 +8,8 @@ const DateResult = z.object({
 
 export const getActualDate = async () => {
   const response = await fetch(
-    "https://www.timeapi.io/api/Time/current/zone?timeZone=Europe/Warsaw"
+    "https://www.timeapi.io/api/Time/current/zone?timeZone=Europe/Warsaw",
+    { cache: "no-store" }
   );
 
   if (!response.ok) {

@@ -1,3 +1,4 @@
+import Providers from "@/app/providers/queryProvider";
 import { Navbar } from "@/components/Navbar";
 import { globalStyles } from "@/theme/globalStyles";
 import { theme } from "@/theme/theme";
@@ -32,7 +33,7 @@ export default function RootLayout({
             <CssBaseline />
             {globalStyles}
             <Navbar />
-            {children}
+            <Providers>{children}</Providers>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

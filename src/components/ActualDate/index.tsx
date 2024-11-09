@@ -1,4 +1,4 @@
-import { getActualDate } from "@/actions/getActualDate";
+import { getActualDate } from "@/db/server/getActualDate";
 import { Typography } from "@mui/material";
 import { FC } from "react";
 

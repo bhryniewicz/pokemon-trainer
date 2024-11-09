@@ -1,4 +1,4 @@
-import { getPokemonData } from "../actions/getPokemonData";
+import { getPokemonData } from "../db/server/getPokemonData";
 
 global.fetch = jest.fn();
 

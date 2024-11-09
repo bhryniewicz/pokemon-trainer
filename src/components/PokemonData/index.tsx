@@ -1,12 +1,12 @@
 "use client";
 
-import { getPokemonData } from "@/actions/getPokemonData";
 import { TypeBox } from "@/components/PokemonData/TypeBox";
+import { getPokemonData } from "@/db/server/getPokemonData";
 import { boxSx } from "@/theme/styles";
-import { PokemonDataType } from "@/types/pokemon";
 import { Box, List, ListItem, Typography } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 interface PokemonDataProps {
   pokemonName: string;
@@ -19,32 +19,19 @@ export const boxStyles = {
   justifyContent: "center",
   border: `1px solid #eeeeee`,
   minHeight: "300px",
+  gap: "1rem",
   p: 2,
   mt: 3,
 };
 
 export const PokemonData: FC<PokemonDataProps> = ({ pokemonName }) => {
-  const [isDataLoading, setIsDataLoading] = useState<boolean>(false);
-  const [pokemon, setPokemon] = useState<PokemonDataType>(undefined);
+  const { data: pokemon, isLoading } = useQuery({
+    queryKey: ["pokemon", pokemonName],
+    queryFn: async () => await getPokemonData(pokemonName),
+    enabled: pokemonName !== "",
+  });
 
-  useEffect(() => {
-    const fetchPokemonData = async () => {
-      if (pokemonName == "") return;
-      try {
-        setIsDataLoading(true);
-        const data = await getPokemonData(pokemonName);
-        setPokemon(data);
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setIsDataLoading(false);
-      }
-    };
-
-    fetchPokemonData();
-  }, [pokemonName]);
-
-  if (isDataLoading)
+  if (isLoading)
     return (
       <Box sx={{ ...boxStyles }}>
         <Typography variant="body2" color="secondary.light">
@@ -59,12 +46,7 @@ export const PokemonData: FC<PokemonDataProps> = ({ pokemonName }) => {
         ...boxStyles,
       }}
     >
-      <Image
-        src={pokemon.sprites.front_default}
-        alt="pokemon image"
-        width={200}
-        height={200}
-      />
+      <Image src={pokemon.image} alt="pokemon image" width={200} height={200} />
       <List
         sx={{
           display: "flex",
