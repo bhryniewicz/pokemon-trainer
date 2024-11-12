@@ -8,8 +8,7 @@ export const ActualDate: FC = async () => {
   return (
     <Typography
       variant="body2"
-      sx={{ mb: 3 }}
-      color="secondary.light"
+      sx={{ mb: 3, display: { xs: "none", sm: "block" } }}
       align="right"
     >
       {dayOfWeek}, {dateTime}

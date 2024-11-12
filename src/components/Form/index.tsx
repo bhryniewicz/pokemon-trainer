@@ -58,15 +58,15 @@ export const Form: FC = () => {
   return (
     <>
       <form action={formAction}>
-        <Grid2 container spacing={2}>
-          <Grid2 size={6}>
+        <Grid2 container spacing={3}>
+          <Grid2 size={{ xs: 12, sm: 6 }}>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: { xs: "column", sm: "row" },
                 justifyContent: "space-between",
                 gap: "1rem",
-                marginBottom: "1.5rem",
+                marginBottom: "1rem",
               }}
             >
               <FormInput
@@ -99,7 +99,10 @@ export const Form: FC = () => {
             />
             <PokemonData pokemonName={selectedOption.label} />
           </Grid2>
-          <Grid2 size={6} sx={{ display: "flex", flexDirection: "column" }}>
+          <Grid2
+            size={{ xs: 12, sm: 6 }}
+            sx={{ display: "flex", flexDirection: "column" }}
+          >
             <InputLabel>Trainer's image</InputLabel>
             <Box
               sx={{
@@ -110,6 +113,7 @@ export const Form: FC = () => {
                 border: "1px solid #eee",
                 borderRadius: "4px",
                 flexGrow: 1,
+                minHeight: "300px",
               }}
             >
               <Button

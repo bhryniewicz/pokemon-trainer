@@ -34,9 +34,7 @@ export const PokemonData: FC<PokemonDataProps> = ({ pokemonName }) => {
   if (isLoading)
     return (
       <Box sx={{ ...boxStyles }}>
-        <Typography variant="body2" color="secondary.light">
-          Loading pokemon...
-        </Typography>
+        <Typography variant="body2">Loading pokemon...</Typography>
       </Box>
     );
 
@@ -68,9 +66,7 @@ export const PokemonData: FC<PokemonDataProps> = ({ pokemonName }) => {
     </Box>
   ) : (
     <Box sx={{ ...boxSx }}>
-      <Typography variant="body2" color="secondary.light">
-        Your pokemon
-      </Typography>
+      <Typography variant="body2">Your pokemon</Typography>
     </Box>
   );
 };

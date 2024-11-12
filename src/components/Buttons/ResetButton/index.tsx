@@ -15,7 +15,12 @@ export const ResetButton: FC<ResetButtonProps> = ({
   color,
 }) => {
   return (
-    <Button variant="contained" color={color} onClick={resetInputs}>
+    <Button
+      variant="contained"
+      color={color}
+      onClick={resetInputs}
+      sx={{ flexGrow: { xs: 1, sm: 0 } }}
+    >
       {children}
     </Button>
   );

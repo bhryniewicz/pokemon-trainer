@@ -40,7 +40,7 @@ export const darkTheme: Theme = createTheme({
       "100": "#2A2A2A",
       "200": "#CAC4CE",
       "300": "#E4E4E4",
-      "400": "#EEEEEE",
+      "400": "#eeeeee",
     },
     error: {
       main: "#FF4E4E",

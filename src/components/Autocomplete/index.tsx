@@ -54,15 +54,14 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
         }}
         renderInput={(params) => (
           <Input
-            sx={(theme) => ({
-              width: "100%",
-              border: `1px solid ${theme.palette.grey[400]}`,
-              borderRadius: "4px",
+            fullWidth
+            sx={{
               marginBottom: "0.25rem",
+
               "& .MuiInput-input": {
                 padding: "14px 10px !important",
               },
-            })}
+            }}
             name="pokemon"
             disableUnderline
             placeholder={"Choose"}

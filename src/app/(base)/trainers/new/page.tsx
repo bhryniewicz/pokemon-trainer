@@ -1,9 +1,9 @@
 import { FormContainer } from "@/components/FormContainer";
 import { Box, Button, Divider } from "@mui/material";
 import {
-    dehydrate,
-    HydrationBoundary,
-    QueryClient,
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
 } from "@tanstack/react-query";
 import Link from "next/link";
 
@@ -18,7 +18,7 @@ export default async function NewTrainerPage({
   searchParams: { search = "", name = "" },
 }: TrainersPageProps) {
   const queryClient = new QueryClient();
-  
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Box
@@ -27,20 +27,20 @@ export default async function NewTrainerPage({
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          pt: 8,
+          pt: { xs: 4, sm: 8 },
+          pb: { xs: 4, sm: 0 },
         }}
       >
         <FormContainer search={search} name={name} />
         <Divider variant="middle" orientation="vertical" flexItem />
-        <Link href="/trainers">
-          <Button
-            variant="outlined"
-            color="primary"
-            sx={{ width: "fit-content" }}
-          >
-            Back to trainers' list
-          </Button>
-        </Link>
+        <Button
+          LinkComponent={Link}
+          href="/trainers"
+          variant="outlined"
+          color="primary"
+        >
+          Back to trainers' list
+        </Button>
       </Box>
     </HydrationBoundary>
   );

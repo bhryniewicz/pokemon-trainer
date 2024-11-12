@@ -11,6 +11,7 @@ export const SubmitButton: FC = () => {
       variant="contained"
       color="primary"
       disabled={pending}
+      sx={{ flexGrow: { xs: 1, sm: 0 } }}
     >
       {pending ? "Verifing informations" : "Submit"}
     </Button>

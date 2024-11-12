@@ -21,23 +21,21 @@ export const FormInput: FC<PokemonTrainerInputProps> = ({
   const theme = useTheme();
 
   return (
-    <Box>
+    <Box sx={{ width: "100%" }}>
       <InputLabel>{label}</InputLabel>
       <Input
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setValue(e.target.value)
         }
+        fullWidth
         value={value}
         disableUnderline
         placeholder={placeholder}
         name={name}
         sx={{
-          border: `1px solid ${theme.palette.grey[400]}`,
-          padding: "14px 10px",
-          borderRadius: "4px",
           mb: 0.5,
+
           "& .MuiInput-input": {
-            width: "235px",
             padding: "0",
           },
         }}
