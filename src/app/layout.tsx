@@ -1,38 +1,35 @@
+"use client";
+
 import Providers from "@/app/providers/queryProvider";
 import { Navbar } from "@/components/Navbar";
 import { globalStyles } from "@/theme/globalStyles";
-import { theme } from "@/theme/theme";
+import { darkTheme, lightTheme } from "@/theme/theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import type { Metadata } from "next";
+import { useState } from "react";
 
-export const metadata: Metadata = {
-  title: "Pokemon trainer app",
-  description: "App for creating custom pokemon trainer",
-  keywords: ["pokemons", "trainer", "new trainer"],
-  authors: [{ name: "Bartosz Hryneiwicz" }],
-  openGraph: {
-    title: "Pokemon trainer app",
-    description: "App for creating custom pokemon trainer",
-    siteName: "Pokemon trainer app",
-    locale: "en_US",
-    type: "website",
-  },
-};
+export type ModeTypes = "dark" | "light";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [mode, setMode] = useState<ModeTypes>("dark");
+
   return (
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider
+            theme={mode === "dark" ? darkTheme : lightTheme}
+            disableTransitionOnChange
+          >
             <CssBaseline />
             {globalStyles}
-            <Navbar />
+            <>
+              <Navbar setMode={setMode} />
+            </>
             <Providers>{children}</Providers>
           </ThemeProvider>
         </AppRouterCacheProvider>

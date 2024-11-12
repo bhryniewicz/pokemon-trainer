@@ -7,7 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 import { FC, ReactNode, memo, useState } from "react";
 
 interface AutocompleteProps {
-  search: string;
   error: ReactNode;
   selectedOption: PokemonOption;
   setSelectedOption: (value: PokemonOption) => void;
@@ -19,7 +18,7 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
   setSelectedOption,
 }) => {
   const [searchPhrase, setSearchPhrase] = useState<string>("");
-  const debouncedSearchPhrase = useDebounce(searchPhrase, 300);
+  const debouncedSearchPhrase = useDebounce(searchPhrase, 500);
 
   const { data: filteredOptions, isLoading } = useQuery({
     queryKey: ["searched-pokemon", debouncedSearchPhrase],

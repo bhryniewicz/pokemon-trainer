@@ -14,11 +14,7 @@ import { useFormState } from "react-dom";
 import { PokemonData } from "../PokemonData";
 import { defaultAutocompleteValue } from "./values";
 
-interface FormProps {
-  search: string;
-}
-
-export const Form: FC<FormProps> = ({ search }) => {
+export const Form: FC = () => {
   const [state, formAction] = useFormState<FormStateType, FormData>(
     createTrainer,
     {
@@ -95,7 +91,6 @@ export const Form: FC<FormProps> = ({ search }) => {
               />
             </Box>
             <AutoComplete
-              search={search}
               error={
                 <ErrorMessages errors={findErrors("pokemon", state.errors)} />
               }

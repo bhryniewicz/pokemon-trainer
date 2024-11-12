@@ -6,10 +6,8 @@ export default function PokemonsLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Container>
-      <Box sx={{ m: 4, p: 4, border: "1px solid #eee", borderRadius: "4px" }}>
-        {children}
-      </Box>
+    <Container maxWidth="lg">
+      <Box sx={{ m: 4, p: 4, border: "1px solid #eee" }}>{children}</Box>
     </Container>
   );
 }

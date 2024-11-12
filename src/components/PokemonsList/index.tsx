@@ -66,10 +66,10 @@ const PokemonsListItem: FC<PokemonBasicInfo> = ({ id, name, image }) => {
             flexDirection: "column",
             justifyContent: "space-between",
             alignItems: "center",
-            py: 3,
-            px: 3,
+            p: 3,
             border: `2px solid ${theme.palette.primary.main}`,
             borderRadius: "4px",
+            color: theme.palette.primary.main,
             backgroundColor: theme.palette.primary.light,
             transition: "0.3s",
 

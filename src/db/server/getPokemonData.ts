@@ -7,7 +7,7 @@ export const getPokemonData = async (
   pokemonName: string
 ): Promise<PokemonDataType> => {
   if (pokemonName == "") {
-    throw new Error("jd");
+    throw new Error("Dont have a pokemon like this!");
   }
 
   const response = await fetch(
