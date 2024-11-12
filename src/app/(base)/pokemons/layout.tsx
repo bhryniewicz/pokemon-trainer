@@ -7,7 +7,15 @@ export default function PokemonsLayout({
 }>) {
   return (
     <Container maxWidth="lg">
-      <Box sx={{ m: 4, p: 4, border: "1px solid #eee" }}>{children}</Box>
+      <Box
+        sx={{
+          mt: 4,
+          p: { xs: 1, sm: 2, md: 4 },
+          border: { xs: "none", sm: "1px solid #eee" },
+        }}
+      >
+        {children}
+      </Box>
     </Container>
   );
 }

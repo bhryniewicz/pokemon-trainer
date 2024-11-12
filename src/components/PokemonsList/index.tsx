@@ -51,7 +51,7 @@ export const PokemonsList: FC<PokemonsListProps> = ({ initialPokemons }) => {
 
 const PokemonsListItem: FC<PokemonBasicInfo> = ({ id, name, image }) => {
   return (
-    <Grid2 size={3}>
+    <Grid2 size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 3 }}>
       <Link
         href={`/pokemons/${id}`}
         style={{
