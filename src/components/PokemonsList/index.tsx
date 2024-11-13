@@ -3,44 +3,49 @@
 import { getPokemonsData } from "@/db/server/getPokemonsData";
 import { PokemonBasicInfo, PokemonDataType } from "@/types/pokemon";
 import { Box, Grid2, Typography, alpha } from "@mui/material";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
-const NUMBER_OF_POKEMONS_TO_FETCH = 12;
-
 interface PokemonsListProps {
-  initialPokemons: Array<PokemonDataType>;
+  initialPokemons?: Array<PokemonDataType>;
 }
 
-export const PokemonsList: FC<PokemonsListProps> = ({ initialPokemons }) => {
-  const [offset, setOffset] = useState<number>(NUMBER_OF_POKEMONS_TO_FETCH);
-  const [pokemons, setPokemons] =
-    useState<Array<PokemonDataType>>(initialPokemons);
+export const PokemonsList: FC<PokemonsListProps> = () => {
   const { ref, inView } = useInView();
 
-  const loadMoreUsers = async () => {
-    const apiPokemons = await getPokemonsData(
-      NUMBER_OF_POKEMONS_TO_FETCH,
-      offset
-    );
-    setPokemons((prevPokemons) => [...prevPokemons, ...apiPokemons]);
-    setOffset((offset) => offset + NUMBER_OF_POKEMONS_TO_FETCH);
-  };
+  const { data, fetchNextPage, status, hasNextPage, isError } =
+    useInfiniteQuery({
+      queryKey: ["list"],
+      queryFn: getPokemonsData,
+      initialPageParam: 0,
+      getNextPageParam: (_, poks) => {
+        return poks.flat().length;
+      },
+    });
 
   useEffect(() => {
-    if (inView) {
-      loadMoreUsers();
+    if (inView && hasNextPage) {
+      fetchNextPage();
     }
   }, [inView]);
 
-  return (
+  return status === "pending" ? (
+    <p>Loading...</p>
+  ) : isError ? (
+    <div>Error: NO pokemons!!!</div>
+  ) : (
     <>
       <Grid2 container spacing={4}>
-        {pokemons.map((pokemon) => {
-          return <PokemonsListItem {...pokemon} key={pokemon.id} />;
-        })}
+        {data.pages.map((pokemons, i) => (
+          <React.Fragment key={i}>
+            {pokemons.map((pokemon) => {
+              return <PokemonsListItem {...pokemon} key={pokemon.id} />;
+            })}
+          </React.Fragment>
+        ))}
       </Grid2>
       <Typography variant="body2" ref={ref} sx={{ textAlign: "center", pt: 2 }}>
         Loading...

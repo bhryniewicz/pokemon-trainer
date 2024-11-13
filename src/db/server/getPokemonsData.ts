@@ -1,8 +1,12 @@
 import { PokemonsListResult } from "@/types/zodValidators/validators";
 
-export const getPokemonsData = async (limit: number, offset: number) => {
+export const getPokemonsData = async ({
+  pageParam: offset,
+}: {
+  pageParam: number;
+}) => {
   const resp = await fetch(
-    `https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`
+    `https://pokeapi.co/api/v2/pokemon/?limit=${12}&offset=${offset}`
   );
 
   if (!resp.ok) {
