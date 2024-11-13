@@ -1,4 +1,7 @@
-import { ModeTypes } from "@/app/layout";
+"use client";
+
+import { ThemeTypes } from "@/app/layout";
+import { saveTheme } from "@/db/server/saveTheme";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
@@ -13,15 +16,16 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 interface NavbarProps {
-  setMode: Dispatch<SetStateAction<ModeTypes>>;
+  theme: ThemeTypes;
 }
 
-export const Navbar: FC<NavbarProps> = ({ setMode }) => {
+export const Navbar: FC<NavbarProps> = ({ theme }) => {
   const [isDraweOpen, setIsDrawerOpen] = useState<boolean>(false);
   const pathname = usePathname();
+  const newTheme = theme === "dark" ? "light" : "dark";
 
   useEffect(() => {
     setIsDrawerOpen(false);
@@ -38,9 +42,11 @@ export const Navbar: FC<NavbarProps> = ({ setMode }) => {
       <MuiLink component={Link} href="/trainers">
         Trainers
       </MuiLink>
-
       <Switch
-        onClick={() => setMode((prev) => (prev === "dark" ? "light" : "dark"))}
+        checked={theme === "dark"}
+        onClick={async () => {
+          await saveTheme(newTheme);
+        }}
       />
     </>
   );

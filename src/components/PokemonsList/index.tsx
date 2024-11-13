@@ -32,6 +32,15 @@ export const PokemonsList: FC<PokemonsListProps> = () => {
     }
   }, [inView]);
 
+
+  //prefetch on server 
+  //adjsut some patterns for usequery
+  //testing???
+  //single pokemon paage
+  //local storage theme mode
+  //refactor table
+  //change trainers data
+
   return status === "pending" ? (
     <p>Loading...</p>
   ) : isError ? (
@@ -47,7 +56,7 @@ export const PokemonsList: FC<PokemonsListProps> = () => {
           </React.Fragment>
         ))}
       </Grid2>
-      <Typography variant="body2" ref={ref} sx={{ textAlign: "center", pt: 2 }}>
+      <Typography variant="body2" ref={ref} sx={{ textAlign: "center", pt: 3 }}>
         Loading...
       </Typography>
     </>
