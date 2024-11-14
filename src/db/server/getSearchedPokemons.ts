@@ -1,6 +1,11 @@
-export const getSearchedPokemons = async (searchPhrase?: string) => {
+import { PokemonOption } from "@/types/pokemon";
+
+export const getSearchedPokemons = async (
+  searchPhrase?: string
+): Promise<Array<PokemonOption>> => {
   const resp = await fetch(`/api/search?name=${searchPhrase}`);
 
-  const fusedOptions = await resp.json();
+  const fusedOptions: Array<PokemonOption> = await resp.json();
+
   return fusedOptions;
 };

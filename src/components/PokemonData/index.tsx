@@ -1,10 +1,9 @@
 "use client";
 
 import { TypeBox } from "@/components/PokemonData/TypeBox";
-import { getPokemonData } from "@/db/server/getPokemonData";
+import { usePokemonQuery } from "@/hooks/usePokemonQuery";
 import { boxSx } from "@/theme/styles";
 import { Box, List, ListItem, Typography } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { FC } from "react";
 
@@ -25,11 +24,7 @@ export const boxStyles = {
 };
 
 export const PokemonData: FC<PokemonDataProps> = ({ pokemonName }) => {
-  const { data: pokemon, isLoading } = useQuery({
-    queryKey: ["pokemon", pokemonName],
-    queryFn: async () => await getPokemonData(pokemonName),
-    enabled: pokemonName !== "",
-  });
+  const { data: pokemon, isLoading } = usePokemonQuery(pokemonName);
 
   if (isLoading)
     return (

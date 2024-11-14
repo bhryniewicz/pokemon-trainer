@@ -43,7 +43,6 @@ export const Navbar: FC<NavbarProps> = ({ theme }) => {
         Trainers
       </MuiLink>
       <Switch
-        checked={theme === "dark"}
         onClick={async () => {
           await saveTheme(newTheme);
         }}

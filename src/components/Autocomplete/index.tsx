@@ -1,9 +1,8 @@
 import { defaultAutocompleteValue } from "@/components/Form/values";
-import { getSearchedPokemons } from "@/db/server/getSearchedPokemons";
 import { useDebounce } from "@/hooks/useDebounce";
+import { usePokemonSearchQuery } from "@/hooks/usePokemonQuery";
 import { PokemonOption } from "@/types/pokemon";
 import { Autocomplete, Input, InputLabel } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
 import { FC, ReactNode, memo, useState } from "react";
 
 interface AutocompleteProps {
@@ -20,13 +19,9 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
   const [searchPhrase, setSearchPhrase] = useState<string>("");
   const debouncedSearchPhrase = useDebounce(searchPhrase, 500);
 
-  const { data: filteredOptions, isLoading } = useQuery({
-    queryKey: ["searched-pokemon", debouncedSearchPhrase],
-    queryFn: async () => await getSearchedPokemons(debouncedSearchPhrase),
-    initialData: [],
-    staleTime: 0,
-    enabled: debouncedSearchPhrase !== "",
-  });
+  const { data: filteredOptions, isLoading } = usePokemonSearchQuery(
+    debouncedSearchPhrase
+  );
 
   return (
     <>

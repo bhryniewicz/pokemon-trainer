@@ -1,9 +1,8 @@
 "use client";
 
-import { getPokemonsData } from "@/db/server/getPokemonsData";
+import { useInfinitePokemonsQuery } from "@/hooks/usePokemonQuery";
 import { PokemonBasicInfo, PokemonDataType } from "@/types/pokemon";
 import { Box, Grid2, Typography, alpha } from "@mui/material";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import React, { FC, useEffect } from "react";
@@ -17,14 +16,7 @@ export const PokemonsList: FC<PokemonsListProps> = () => {
   const { ref, inView } = useInView();
 
   const { data, fetchNextPage, status, hasNextPage, isError } =
-    useInfiniteQuery({
-      queryKey: ["list"],
-      queryFn: getPokemonsData,
-      initialPageParam: 0,
-      getNextPageParam: (_, poks) => {
-        return poks.flat().length;
-      },
-    });
+    useInfinitePokemonsQuery();
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -32,20 +24,19 @@ export const PokemonsList: FC<PokemonsListProps> = () => {
     }
   }, [inView]);
 
-
-  //prefetch on server 
-  //adjsut some patterns for usequery
+  //prefetch on server
+  //adjsut some patterns for usequery -- za to
   //testing???
   //single pokemon paage
-  //local storage theme mode
+  //local storage theme mode - done almost
   //refactor table
   //change trainers data
 
-  return status === "pending" ? (
-    <p>Loading...</p>
-  ) : isError ? (
-    <div>Error: NO pokemons!!!</div>
-  ) : (
+  if (status === "pending") return <p>Loading...</p>;
+
+  if (isError) return <p>Error: no pokemons!!!</p>;
+
+  return (
     <>
       <Grid2 container spacing={4}>
         {data.pages.map((pokemons, i) => (
