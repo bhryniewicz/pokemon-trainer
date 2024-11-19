@@ -1,72 +1,47 @@
-import { defaultAutocompleteValue } from "@/components/Form/values";
-import { useDebounce } from "@/hooks/useDebounce";
-import { usePokemonSearchQuery } from "@/hooks/usePokemonQuery";
 import { PokemonOption } from "@/types/pokemon";
-import { Autocomplete, Input, InputLabel } from "@mui/material";
-import { FC, ReactNode, memo, useState } from "react";
+import { Autocomplete, TextField } from "@mui/material";
+import { FC, memo } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface AutocompleteProps {
-  error: ReactNode;
-  selectedOption: PokemonOption;
-  setSelectedOption: (value: PokemonOption) => void;
+  filteredOptions: Array<PokemonOption>;
+  setSearchPhrase: (value: string) => void;
+  searchPhrase: string;
+  isLoading: boolean;
 }
 
 export const AutocompleteComponent: FC<AutocompleteProps> = ({
-  error,
-  selectedOption,
-  setSelectedOption,
+  filteredOptions,
+  setSearchPhrase,
+  searchPhrase,
+  isLoading,
 }) => {
-  const [searchPhrase, setSearchPhrase] = useState<string>("");
-  const debouncedSearchPhrase = useDebounce(searchPhrase, 500);
-
-  const { data: filteredOptions, isLoading } = usePokemonSearchQuery(
-    debouncedSearchPhrase
-  );
+  const { setValue, watch } = useFormContext();
 
   return (
-    <>
-      <InputLabel>Pokemon name</InputLabel>
-      <Autocomplete
-        sx={(theme) => ({
-          "& .MuiInputLabel-root": {
-            color: theme.palette.grey[200],
-          },
-        })}
-        loading={isLoading}
-        inputValue={searchPhrase}
-        value={selectedOption}
-        fullWidth
-        options={filteredOptions}
-        onChange={(_, value) => {
-          setSelectedOption(value ?? defaultAutocompleteValue);
-        }}
-        onInputChange={(_, value) => {
-          setSearchPhrase(value);
-        }}
-        filterOptions={(options) => {
-          options = filteredOptions;
-          return options;
-        }}
-        renderInput={(params) => (
-          <Input
-            fullWidth
-            sx={{
-              marginBottom: "0.25rem",
-
-              "& .MuiInput-input": {
-                padding: "14px 10px !important",
-              },
-            }}
-            name="pokemon"
-            disableUnderline
-            placeholder={"Choose"}
-            ref={params.InputProps.ref}
-            inputProps={{ ...params.inputProps }}
-          />
-        )}
-      />
-      {error}
-    </>
+    <Autocomplete
+      loading={isLoading}
+      inputValue={searchPhrase}
+      value={watch("pokemonName") || ""}
+      fullWidth
+      options={filteredOptions.map((entry) => entry.label) || []}
+      onChange={(_, value) => {
+        setValue("pokemonName", value);
+      }}
+      onInputChange={(_, value) => {
+        setSearchPhrase(value);
+      }}
+      filterOptions={(option) => option}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          id="pokemonName"
+          name="pokemonName"
+          placeholder="Choose"
+          autoComplete="off"
+        />
+      )}
+    />
   );
 };
 

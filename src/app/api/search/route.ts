@@ -1,4 +1,4 @@
-import { pokemonOptions } from "@/db/utils";
+import { pokemonOptions, wait } from "@/db/utils";
 import Fuse from "fuse.js";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  await wait(2000);
   const lowerCasedQuery = pokemonName.toLowerCase();
   const fuse = new Fuse(pokemonOptions, {
     keys: ["label"],

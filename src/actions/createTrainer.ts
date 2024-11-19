@@ -1,8 +1,5 @@
 "use server";
 
-import fs from "fs/promises";
-import { revalidatePath } from "next/cache";
-import path from "path";
 import { z, ZodIssue } from "zod";
 
 export type FormStateType = {
@@ -39,65 +36,66 @@ const formDataSchema = z.object({
     .min(2, "Required from 2 to 20 symbols")
     .max(20, "Required from 2 to 20 symbols"),
   pokemon: z.string().min(1, { message: "Choose something" }),
-  image: imageSchema,
 });
 
-export const createTrainer = async (
-  prevState: unknown,
-  formData: FormData
-): Promise<FormStateType> => {
-  let userImage;
+export const createTrainer = async (formData: FormData) => {
+  console.log(formData);
+  console.log("koniec na serwerze");
+  //   let userImage;
 
-  const validation = formDataSchema.safeParse({
-    age: Number(formData.get("age")),
-    name: formData.get("name"),
-    pokemon: formData.get("pokemon"),
-    image: formData.get("file"),
-  });
+  //   const validation = formDataSchema.safeParse({
+  //     age: Number(formData.get("age")),
+  //     name: formData.get("name"),
+  //     pokemon: formData.get("pokemon"),
+  //   });
 
-  if (validation.success) {
-    const image = formData.get("file") as File;
+  //   //   if (validation.success) {
+  //   //     const image = formData.get("file") as File;
 
-    if (image.name === "undefined") {
-      userImage = "basic_user_image.png";
-    } else {
-      const buffer = Buffer.from(await image.arrayBuffer());
-      const uploadDir = path.join(process.cwd(), "public/uploads");
-      const filePath = path.join(uploadDir, image.name);
+  //   //     if (image.name === "undefined") {
+  //   //       userImage = "basic_user_image.png";
+  //   //     } else {
+  //   //       const buffer = Buffer.from(await image.arrayBuffer());
+  //   //       const uploadDir = path.join(process.cwd(), "public/uploads");
+  //   //       const filePath = path.join(uploadDir, image.name);
 
-      await fs.mkdir(uploadDir, { recursive: true });
+  //   //       await fs.mkdir(uploadDir, { recursive: true });
 
-      await fs.writeFile(filePath, buffer);
-      userImage = image.name;
-    }
+  //   //       await fs.writeFile(filePath, buffer);
+  //   //       userImage = image.name;
+  //   //     }
 
-    await fetch("http://localhost:3000/api/trainer", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: crypto.randomUUID(),
-        name: formData.get("name"),
-        age: Number(formData.get("age")),
-        pokemon: formData.get("pokemon"),
-        image: `http://localhost:3000/uploads/${userImage}`,
-      }),
-    });
+  //   if (validation.success) {
+  //     await fetch("http://localhost:3000/api/trainer", {
+  //       method: "POST",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         id: crypto.randomUUID(),
+  //         name: formData.get("name"),
+  //         age: Number(formData.get("age")),
+  //         pokemon: formData.get("pokemon"),
+  //         image: `http://localhost:3000/uploads/6d3.jpeg`,
+  //       }),
+  //     });
+  //   }
 
-    revalidatePath("/trainers");
+  //   revalidatePath("/trainers");
 
-    return {
-      errors: [],
-      isModalOpen: true,
-    };
-  } else {
-    console.log(validation.error.issues);
+  //     return {
+  //       errors: [],
+  //       isModalOpen: true,
+  //     };
+  //   } else {
+  //     console.log(validation.error.issues);
 
-    return {
-      errors: validation.error.issues,
-      isModalOpen: false,
-    };
-  }
+  //     return {
+  //       errors: validation.error.issues,
+  //       isModalOpen: false,
+  //     };
+  //   }
+
+  return true;
 };

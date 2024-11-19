@@ -1,21 +1,18 @@
-import { Modal, Typography, Box } from "@mui/material";
-import { FC } from "react";
 import { ResetButton } from "@/components/Buttons/ResetButton";
+import { Box, Modal, Typography } from "@mui/material";
+import { FC } from "react";
 
 interface SuccessModalProps {
   isModalOpen: boolean;
-  setIsModalOpen: (value: boolean) => void;
   resetInputs: () => void;
 }
 
 export const SuccessModal: FC<SuccessModalProps> = ({
   isModalOpen,
-  setIsModalOpen,
   resetInputs,
 }) => {
   const handleButtonAction = () => {
     resetInputs();
-    setIsModalOpen(false);
   };
 
   return (
@@ -28,7 +25,7 @@ export const SuccessModal: FC<SuccessModalProps> = ({
       }}
       disableAutoFocus
       open={isModalOpen}
-      onClose={() => setIsModalOpen(false)}
+      onClose={handleButtonAction}
     >
       <Box
         sx={(theme) => ({

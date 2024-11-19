@@ -21,7 +21,7 @@ export const FormContainer: FC<FormProps> = async ({
         }}
       >
         <ActualDate />
-        <Form/>
+        <Form />
       </Box>
     </Container>
   );

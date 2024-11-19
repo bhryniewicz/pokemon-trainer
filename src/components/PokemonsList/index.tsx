@@ -12,7 +12,7 @@ interface PokemonsListProps {
   initialPokemons?: Array<PokemonDataType>;
 }
 
-export const PokemonsList: FC<PokemonsListProps> = () => {
+export const PokemonsList: FC<PokemonsListProps> = ({ initialPokemons }) => {
   const { ref, inView } = useInView();
 
   const { data, fetchNextPage, status, hasNextPage, isError } =
@@ -24,8 +24,6 @@ export const PokemonsList: FC<PokemonsListProps> = () => {
     }
   }, [inView]);
 
-  //prefetch on server
-  //adjsut some patterns for usequery -- za to
   //testing???
   //single pokemon paage
   //local storage theme mode - done almost

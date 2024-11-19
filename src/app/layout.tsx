@@ -1,4 +1,4 @@
-import Providers from "@/app/providers/queryProvider";
+import Providers from "@/providers/queryProvider";
 import { Navbar } from "@/components/Navbar";
 import { globalStyles } from "@/theme/globalStyles";
 import { darkTheme, lightTheme } from "@/theme/theme";

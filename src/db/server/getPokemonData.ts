@@ -6,7 +6,7 @@ import { PokemonResult } from "@/types/zodValidators/validators";
 export const getPokemonData = async (
   pokemonName: string
 ): Promise<PokemonDataType> => {
-  if (pokemonName == "") {
+  if (pokemonName === "") {
     throw new Error("Dont have a pokemon like this!");
   }
 
