@@ -16,7 +16,11 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
   searchPhrase,
   isLoading,
 }) => {
-  const { setValue, watch } = useFormContext();
+  const {
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <Autocomplete
@@ -36,9 +40,10 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
         <TextField
           {...params}
           id="pokemonName"
-          name="pokemonName"
           placeholder="Choose"
           autoComplete="off"
+          error={Boolean(errors.pokemonName)}
+          helperText={errors.pokemonName && errors.pokemonName.message}
         />
       )}
     />

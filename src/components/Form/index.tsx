@@ -5,20 +5,15 @@ import { SubmitButton } from "@/components/Buttons/SubmitButton";
 import { useDebounce } from "@/hooks/useDebounce";
 import { usePokemonSearchQuery } from "@/hooks/usePokemonQuery";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Box,
-  Button,
-  FormLabel,
-  Grid2,
-  InputLabel,
-  TextField,
-} from "@mui/material";
+import { Box, Button, FormLabel, Grid2, Stack, TextField } from "@mui/material";
 import { FC, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { AutoComplete } from "../Autocomplete";
+import { ResetButton } from "../Buttons/ResetButton";
 import { PokemonData } from "../PokemonData";
 import { SuccessModal } from "../SuccessModal";
 import { FormValues, schema } from "./schema";
+import { ImageUploader } from "../ImageUploader";
 
 export const Form: FC = () => {
   const [searchPhrase, setSearchPhrase] = useState<string>("");
@@ -41,6 +36,9 @@ export const Form: FC = () => {
   const methods = useForm<FormValues>({
     mode: "onChange",
     resolver: zodResolver(schema),
+    defaultValues: {
+      pokemonName: "",
+    },
   });
 
   const {
@@ -51,100 +49,85 @@ export const Form: FC = () => {
     watch,
   } = methods;
 
-  let pokemonName = watch("pokemonName", "");
+  let pokemonName = watch("pokemonName");
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid2 container spacing={3}>
-          <Grid2 size={{ xs: 12, sm: 6 }}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: { xs: "column", sm: "row" },
-                justifyContent: "space-between",
-                gap: "1rem",
-                marginBottom: "1rem",
-              }}
-            >
+      <Grid2
+        container
+        spacing={3}
+        component={"form"}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Grid2 size={{ xs: 12, sm: 6 }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", sm: "row" },
+              justifyContent: "space-between",
+              gap: "1rem",
+              marginBottom: "1rem",
+            }}
+          >
+
+            <Grid2 size={6}>
               <FormLabel htmlFor="name">Trainer's name</FormLabel>
               <TextField
                 {...register("name")}
                 id="name"
                 placeholder="Trainer's name"
                 autoComplete="off"
+                fullWidth
                 error={Boolean(errors.name)}
                 helperText={errors.name && errors.name.message}
               />
+            </Grid2>
+
+            <Grid2 size={6}>
               <FormLabel htmlFor="age">Trainer's agee</FormLabel>
               <TextField
                 {...register("age")}
                 id="age"
                 placeholder="Trainer's name"
                 autoComplete="off"
+                fullWidth
                 error={Boolean(errors.age)}
                 helperText={errors.age && errors.age.message}
               />
-            </Box>
-            <AutoComplete
-              filteredOptions={filteredOptions}
-              setSearchPhrase={setSearchPhrase}
-              searchPhrase={searchPhrase}
-              isLoading={isFetching}
-            />
-            <PokemonData pokemonName={pokemonName} />
-          </Grid2>
-          <Grid2
-            size={{ xs: 12, sm: 6 }}
-            sx={{ display: "flex", flexDirection: "column" }}
-          >
-            <InputLabel>Trainer's image</InputLabel>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                border: "1px solid #eee",
-                borderRadius: "4px",
-                flexGrow: 1,
-                minHeight: "300px",
-              }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                component="label"
-                sx={{ height: "30px", mb: 1 }}
-              >
-                Choose File
-                {/* <input
-                  type="file"
-                  hidden
-                  onChange={handleFileChange}
-                  name="file"
-                  ref={fileInputRef}
-                /> */}
-              </Button>
-            </Box>
-          </Grid2>
+            </Grid2>
+
+          </Box>
+          <AutoComplete
+            filteredOptions={filteredOptions}
+            setSearchPhrase={setSearchPhrase}
+            searchPhrase={searchPhrase}
+            isLoading={isFetching}
+          />
+          <PokemonData pokemonName={pokemonName} />
         </Grid2>
 
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: "1rem",
-            mt: 2.5,
-          }}
+        <Grid2
+          size={{ xs: 12, sm: 6 }}
+          sx={{ display: "flex", flexDirection: "column" }}
         >
-          {/* <ResetButton resetInputs={handleResetInputs} color={"secondary"}>
-            Reset
-          </ResetButton> */}
-          <SubmitButton />
-        </Box>
-      </form>
-      <SuccessModal resetInputs={reset} isModalOpen={isSubmitSuccessful} />
+          <ImageUploader />
+        </Grid2>
+
+        <Grid2 size={12}>
+          <Stack direction="row" justifyContent="flex-end" spacing={1.2}>
+            <ResetButton resetInputs={() => reset()} color={"secondary"}>
+              Reset
+            </ResetButton>
+            <SubmitButton />
+          </Stack>
+        </Grid2>
+
+      </Grid2>
+
+      <SuccessModal
+        resetInputs={() => reset()}
+        isModalOpen={isSubmitSuccessful}
+      />
     </FormProvider>
   );
 };

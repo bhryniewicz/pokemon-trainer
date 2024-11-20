@@ -5,5 +5,10 @@ export const MuiAutocomplete: Components<Theme>["MuiAutocomplete"] = {
     listbox: ({ theme }) => ({
       color: theme.palette.grey[100],
     }),
+    endAdornment: ({ theme }) => ({
+      button: {
+        color: `${theme.palette.text.primary}`,
+      },
+    }),
   },
 };
