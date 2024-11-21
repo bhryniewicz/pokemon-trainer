@@ -1,6 +1,6 @@
-import { getPokemonData } from "@/db/server/getPokemonData";
-import { getPokemonsData } from "@/db/server/getPokemonsData";
-import { getSearchedPokemons } from "@/db/server/getSearchedPokemons";
+import { getPokemonData } from "@/db/server/pokemons/getPokemonData";
+import { getPokemonsData } from "@/db/server/pokemons/getPokemonsData";
+import { getSearchedPokemons } from "@/db/server/pokemons/getSearchedPokemons";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 export const usePokemonSearchQuery = (debouncedSearchPhrase: string) =>

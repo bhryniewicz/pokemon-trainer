@@ -1,7 +1,7 @@
 import Providers from "@/providers/queryProvider";
-import { Navbar } from "@/components/Navbar";
-import { globalStyles } from "@/theme/globalStyles";
-import { darkTheme, lightTheme } from "@/theme/theme";
+import { Navbar } from "@/components/Navbar/Navbar";
+import { globalStyles } from "@/styles/theme/globalStyles";
+import { darkTheme, lightTheme } from "@/styles/theme/theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { cookies } from "next/headers";

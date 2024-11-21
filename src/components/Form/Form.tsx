@@ -1,17 +1,17 @@
 "use client";
 
-import { SubmitButton } from "@/components/Buttons/SubmitButton";
+import { SubmitButton } from "@/components/Buttons/SubmitButton/SubmitButton";
 import { useDebounce } from "@/hooks/useDebounce";
 import { usePokemonSearchQuery } from "@/hooks/usePokemonQuery";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, FormLabel, Grid2, Stack, TextField } from "@mui/material";
 import { FC, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { AutoComplete } from "../Autocomplete";
-import { ResetButton } from "../Buttons/ResetButton";
-import { ImageUploader } from "../ImageUploader";
-import { PokemonData } from "../PokemonData";
-import { SuccessModal } from "../SuccessModal";
+import { AutoComplete } from "../Autocomplete/Autocomplete";
+import { ResetButton } from "../Buttons/ResetButton/ResetButton";
+import { ImageUploader } from "../ImageUploader/ImageUploader";
+import { PokemonData } from "../PokemonData/PokemonData";
+import { SuccessModal } from "../SuccessModal/SuccessModal";
 import { FormValues, schema } from "./schema";
 import { createTrainer } from "@/actions/createTrainer";
 

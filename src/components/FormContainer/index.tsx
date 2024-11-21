@@ -1,5 +1,5 @@
-import { ActualDate } from "@/components/ActualDate";
-import { Form } from "@/components/Form";
+import { ActualDate } from "@/components/ActualDate/ActualDate";
+import { Form } from "@/components/Form/Form";
 import { Box, Container } from "@mui/material";
 import { FC } from "react";
 

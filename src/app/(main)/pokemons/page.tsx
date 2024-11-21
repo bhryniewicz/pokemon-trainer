@@ -1,4 +1,4 @@
-import { PokemonsList } from "@/components/PokemonsList";
+import { PokemonsList } from "@/components/PokemonsList/PokemonList";
 import { Box, Typography } from "@mui/material";
 
 export default async function PokemonsPage() {

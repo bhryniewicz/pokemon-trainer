@@ -1,6 +1,6 @@
 "use client";
 
-import * as components from "@/theme/overrides";
+import * as components from "@/styles/overrides";
 import { createTheme, Theme } from "@mui/material";
 import { IBMFont } from "./localFonts";
 

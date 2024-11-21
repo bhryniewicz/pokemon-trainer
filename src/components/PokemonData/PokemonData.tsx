@@ -1,8 +1,8 @@
 "use client";
 
-import { TypeBox } from "@/components/PokemonData/TypeBox";
+import { TypeBox } from "@/components/PokemonData/TypeBox/TypeBox";
 import { usePokemonQuery } from "@/hooks/usePokemonQuery";
-import { boxSx } from "@/theme/styles";
+import { boxSx } from "@/styles/styles";
 import { Box, List, ListItem, Typography } from "@mui/material";
 import Image from "next/image";
 import { FC } from "react";

@@ -1,5 +1,5 @@
-import { getTrainers } from "@/actions/getTrainers";
-import { boxSx } from "@/theme/styles";
+import { getTrainers } from "@/db/server/trainers/getTrainers";
+import { boxSx } from "@/styles/styles";
 import {
   Box,
   Button,

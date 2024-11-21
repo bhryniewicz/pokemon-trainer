@@ -7,36 +7,11 @@ export type FormStateType = {
   isModalOpen: boolean;
 };
 
-const MAX_FILE_SIZE = 1024 * 1024 * 5;
-const ACCEPTED_IMAGE_MIME_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
-
-const imageSchema = z
-  .any()
-  .optional()
-  .refine((file) => {
-    return file.size <= MAX_FILE_SIZE;
-  }, `Max image size is 5MB.`)
-  .refine((file) => {
-    if (file.size == 0) return true;
-    return ACCEPTED_IMAGE_MIME_TYPES.includes(file.type);
-  }, "Only .jpg, .jpeg, .png, and .webp formats are supported.");
-
-const formDataSchema = z.object({
-  age: z
-    .number()
-    .min(16, { message: "Required range from 16-99" })
-    .max(99, { message: "Required range from 16-99" }),
-  name: z
-    .string()
-    .min(2, "Required from 2 to 20 symbols")
-    .max(20, "Required from 2 to 20 symbols"),
-  pokemon: z.string().min(1, { message: "Choose something" }),
-});
+//change namings
+//refactor structure of files
+//create server action again
+//changes boxes to Stack
+//One button component
 
 export const createTrainer = async (formData: FormData) => {
   console.log(formData.get("image"));

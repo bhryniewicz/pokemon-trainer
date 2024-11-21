@@ -1,4 +1,4 @@
-import { ResetButton } from "@/components/Buttons/ResetButton";
+import { ResetButton } from "@/components/Buttons/ResetButton/ResetButton";
 import { Box, Modal, Typography } from "@mui/material";
 import { FC } from "react";
 
