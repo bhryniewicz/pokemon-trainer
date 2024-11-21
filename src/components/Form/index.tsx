@@ -1,19 +1,19 @@
 "use client";
 
-import { createTrainer } from "@/actions/createTrainer";
 import { SubmitButton } from "@/components/Buttons/SubmitButton";
 import { useDebounce } from "@/hooks/useDebounce";
 import { usePokemonSearchQuery } from "@/hooks/usePokemonQuery";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, FormLabel, Grid2, Stack, TextField } from "@mui/material";
+import { Box, FormLabel, Grid2, Stack, TextField } from "@mui/material";
 import { FC, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { AutoComplete } from "../Autocomplete";
 import { ResetButton } from "../Buttons/ResetButton";
+import { ImageUploader } from "../ImageUploader";
 import { PokemonData } from "../PokemonData";
 import { SuccessModal } from "../SuccessModal";
 import { FormValues, schema } from "./schema";
-import { ImageUploader } from "../ImageUploader";
+import { createTrainer } from "@/actions/createTrainer";
 
 export const Form: FC = () => {
   const [searchPhrase, setSearchPhrase] = useState<string>("");
@@ -24,11 +24,14 @@ export const Form: FC = () => {
   );
 
   const onSubmit = async (data: FormValues) => {
+    console.log(data);
     const formData = new FormData();
+
 
     formData.append("name", data.name);
     formData.append("age", data.age.toString());
     formData.append("pokemonName", data.pokemonName);
+    formData.append("image", data.image);
 
     await createTrainer(formData);
   };
@@ -38,6 +41,7 @@ export const Form: FC = () => {
     resolver: zodResolver(schema),
     defaultValues: {
       pokemonName: "",
+      image: undefined,
     },
   });
 
@@ -50,6 +54,9 @@ export const Form: FC = () => {
   } = methods;
 
   let pokemonName = watch("pokemonName");
+  let image = watch("image");
+
+  console.log(image);
 
   return (
     <FormProvider {...methods}>
@@ -69,7 +76,6 @@ export const Form: FC = () => {
               marginBottom: "1rem",
             }}
           >
-
             <Grid2 size={6}>
               <FormLabel htmlFor="name">Trainer's name</FormLabel>
               <TextField
@@ -95,7 +101,6 @@ export const Form: FC = () => {
                 helperText={errors.age && errors.age.message}
               />
             </Grid2>
-
           </Box>
           <AutoComplete
             filteredOptions={filteredOptions}
@@ -121,7 +126,6 @@ export const Form: FC = () => {
             <SubmitButton />
           </Stack>
         </Grid2>
-
       </Grid2>
 
       <SuccessModal

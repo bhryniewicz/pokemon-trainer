@@ -43,7 +43,9 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
           placeholder="Choose"
           autoComplete="off"
           error={Boolean(errors.pokemonName)}
-          helperText={errors.pokemonName && errors.pokemonName.message}
+          helperText={
+            errors.pokemonName && errors.pokemonName?.message?.toString()
+          }
         />
       )}
     />

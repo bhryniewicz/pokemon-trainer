@@ -39,7 +39,7 @@ const formDataSchema = z.object({
 });
 
 export const createTrainer = async (formData: FormData) => {
-  console.log(formData);
+  console.log(formData.get("image"));
   console.log("koniec na serwerze");
   //   let userImage;
 

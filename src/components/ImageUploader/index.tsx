@@ -1,20 +1,47 @@
-import { Box, Button, FormLabel } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormHelperText,
+  FormLabel,
+  Typography,
+} from "@mui/material";
+import { ChangeEvent } from "react";
+import { useFormContext } from "react-hook-form";
 
 export const ImageUploader = () => {
+  const {
+    watch,
+    trigger,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
+
+  const errorMessage = errors.image?.message?.toString();
+  const imageName = watch("image");
+
+  const handleChangeInputFile = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue("image", e.target.files?.[0]);
+    trigger("image");
+  };
+
   return (
     <>
       <FormLabel>Trainer's image</FormLabel>
       <Box
-        sx={{
+        sx={(theme) => ({
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          border: "1px solid #eee",
+          border: `${
+            Boolean(errors.image)
+              ? `1px solid ${theme.palette.error.main}`
+              : `1px solid ${theme.palette.text.primary}`
+          }`,
           borderRadius: "4px",
           flexGrow: 1,
           minHeight: "300px",
-        }}
+        })}
       >
         <Button
           variant="contained"
@@ -23,14 +50,17 @@ export const ImageUploader = () => {
           sx={{ height: "30px", mb: 1 }}
         >
           Choose File
-          {/* <input
-                  type="file"
-                  hidden
-                  onChange={handleFileChange}
-                  name="file"
-                  ref={fileInputRef}
-                /> */}
+          <input
+            type="file"
+            name="file"
+            hidden
+            onChange={handleChangeInputFile}
+          />
         </Button>
+        <Typography variant="body2">{imageName?.name}</Typography>
+        <FormHelperText error={Boolean(errors.image)}>
+          {errorMessage}
+        </FormHelperText>
       </Box>
     </>
   );
