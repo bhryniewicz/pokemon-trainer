@@ -1,5 +1,6 @@
 "use client";
 
+import { createTrainer } from "@/actions/createTrainer";
 import { SubmitButton } from "@/components/Buttons/SubmitButton/SubmitButton";
 import { useDebounce } from "@/hooks/useDebounce";
 import { usePokemonSearchQuery } from "@/hooks/usePokemonQuery";
@@ -13,7 +14,6 @@ import { ImageUploader } from "../ImageUploader/ImageUploader";
 import { PokemonData } from "../PokemonData/PokemonData";
 import { SuccessModal } from "../SuccessModal/SuccessModal";
 import { FormValues, schema } from "./schema";
-import { createTrainer } from "@/actions/createTrainer";
 
 export const Form: FC = () => {
   const [searchPhrase, setSearchPhrase] = useState<string>("");
@@ -23,25 +23,12 @@ export const Form: FC = () => {
     debouncedSearchPhrase
   );
 
-  const onSubmit = async (data: FormValues) => {
-    console.log(data);
-    const formData = new FormData();
-
-
-    formData.append("name", data.name);
-    formData.append("age", data.age.toString());
-    formData.append("pokemonName", data.pokemonName);
-    formData.append("image", data.image);
-
-    await createTrainer(formData);
-  };
-
   const methods = useForm<FormValues>({
     mode: "onChange",
     resolver: zodResolver(schema),
     defaultValues: {
       pokemonName: "",
-      image: undefined,
+      image: null,
     },
   });
 
@@ -54,9 +41,17 @@ export const Form: FC = () => {
   } = methods;
 
   let pokemonName = watch("pokemonName");
-  let image = watch("image");
 
-  console.log(image);
+  const onSubmit = async (data: FormValues) => {
+    const formData = new FormData();
+
+    formData.append("name", data.name);
+    formData.append("age", data.age.toString());
+    formData.append("pokemonName", data.pokemonName);
+    formData.append("image", data.image);
+
+    await createTrainer(formData);
+  };
 
   return (
     <FormProvider {...methods}>

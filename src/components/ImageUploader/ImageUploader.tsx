@@ -17,7 +17,7 @@ export const ImageUploader = () => {
   } = useFormContext();
 
   const errorMessage = errors.image?.message?.toString();
-  const imageName = watch("image");
+  const image = watch("image");
 
   const handleChangeInputFile = (e: ChangeEvent<HTMLInputElement>) => {
     setValue("image", e.target.files?.[0]);
@@ -57,7 +57,7 @@ export const ImageUploader = () => {
             onChange={handleChangeInputFile}
           />
         </Button>
-        <Typography variant="body2">{imageName?.name}</Typography>
+        <Typography variant="body2">{image?.name}</Typography>
         <FormHelperText error={Boolean(errors.image)}>
           {errorMessage}
         </FormHelperText>

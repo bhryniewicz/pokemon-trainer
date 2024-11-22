@@ -16,22 +16,19 @@ export const schema = z.object({
   pokemonName: z.string().refine((val) => val !== "", {
     message: "Choose something",
   }),
-  image: z
-    .any()
-    .optional()
-    .refine(
-      (file) => {
-        return !file || file?.size <= MAX_UPLOAD_SIZE;
-      },
-      { message: "File size must be less than 3MB" }
-    )
-    .refine(
-      (file) => {
-        if (file === undefined) return true;
-        return ACCEPTED_FILE_TYPES.includes(file.type);
-      },
-      { message: "File must be a PNG" }
-    ),
+  image: z.any().nullable(),
+  // .refine(
+  //   (file) => {
+  //     return file || file?.size <= MAX_UPLOAD_SIZE;
+  //   },
+  //   { message: "File size must be less than 3MB" }
+  // )
+  // .refine(
+  //   (file) => {
+  //     return ACCEPTED_FILE_TYPES.includes(file.type);
+  //   },
+  //   { message: "File must be a PNG" }
+  // ),
 });
 
 export type FormValues = z.infer<typeof schema>;

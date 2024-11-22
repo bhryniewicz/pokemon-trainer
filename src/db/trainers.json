@@ -1,0 +1,16 @@
+[
+  {
+    "id": "84c737ad-d9da-4c60-b144-d5c5dd27abf0",
+    "name": "23",
+    "age": 23,
+    "pokemon": "charmander",
+    "image": "http://localhost:3000/uploads/6d3.jpeg"
+  },
+  {
+    "id": "4d166971-d195-4767-8b10-be1abae568b1",
+    "name": "23",
+    "age": 33,
+    "pokemon": "servine",
+    "image": "http://localhost:3000/uploads/6d3.jpeg"
+  }
+]

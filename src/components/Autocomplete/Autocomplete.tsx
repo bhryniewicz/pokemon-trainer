@@ -19,6 +19,7 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
   const {
     setValue,
     watch,
+    trigger,
     formState: { errors },
   } = useFormContext();
 
@@ -31,6 +32,7 @@ export const AutocompleteComponent: FC<AutocompleteProps> = ({
       options={filteredOptions.map((entry) => entry.label) || []}
       onChange={(_, value) => {
         setValue("pokemonName", value);
+        trigger('pokemonName');
       }}
       onInputChange={(_, value) => {
         setSearchPhrase(value);

@@ -1,3 +1,4 @@
+import PokemonTrainer from "@/assets/basicPokemonTrainerImage.png";
 import { getTrainers } from "@/db/server/trainers/getTrainers";
 import { boxSx } from "@/styles/styles";
 import {
@@ -102,7 +103,7 @@ const TrainersTable = async () => {
                     }}
                   >
                     <Image
-                      src={trainer.image}
+                      src={trainer.image ?? PokemonTrainer}
                       alt="jd"
                       fill
                       style={{
